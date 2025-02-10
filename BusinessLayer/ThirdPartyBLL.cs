@@ -21,7 +21,7 @@ namespace BusinessLayer
         public ThirdPartyBLL(HttpClient httpClient, ApplicationDbContext context, ILogger<ThirdPartyBLL> logger)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "MyDotNetApp"); // Required by GitHub API
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "MyDotNetApp"); 
             _context = context;
             _logger = logger;
         }
@@ -30,10 +30,8 @@ namespace BusinessLayer
         {
             try
             {
-                // Call third-party API using Service Layer
                 string apiResponse = await GetGitHubUserAsync();
 
-                // Store response in database
                 var apiResponseEntity = new ApiResponse
                 {
                     ApiName = "GitHubUserAPI",
@@ -65,7 +63,6 @@ namespace BusinessLayer
         {
             var url = "https://api.github.com/users/octocat";
 
-            // Send API request
             var response = await _httpClient.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
